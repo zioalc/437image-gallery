@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:3000/api
+@imageId = PUT_IMAGE_ID_HERE
+
+### Get all images
+GET {{baseUrl}}/images
+
+### Get one image by ID
+GET {{baseUrl}}/images/{{imageId}}
+
+### Rename image successfully
+PATCH {{baseUrl}}/images/{{imageId}}
+Content-Type: application/json
+
+{
+  "name": "Updated image name"
+}
+
+### Bad rename request (missing name -> 400)
+PATCH {{baseUrl}}/images/{{imageId}}
+Content-Type: application/json
+
+{
+  "title": "Not a name field"
+}
+
+### Rename with nonexistent/invalid ID -> 404
+PATCH {{baseUrl}}/images/123
+Content-Type: application/json
+
+{
+  "name": "Should not work"
+}
+
+### Rename with too-long name -> 413
+PATCH {{baseUrl}}/images/{{imageId}}
+Content-Type: application/json
+
+{
+  "name": "This name is intentionally longer than one hundred characters to trigger the content too large response."
+}
