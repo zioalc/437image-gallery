@@ -15,7 +15,7 @@ export function ImageDetails() {
                     throw new Error(`Error: HTTP ${response.status} ${response.statusText}`);
                 }
                 const result = await response.json();
-                const foundImage = result.find((img) => img.id === imageId);
+                const foundImage = result.find((img) => img._id === imageId);
                 setImage(foundImage || null);
                 setError("");
             } catch (err) {
